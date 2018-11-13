@@ -2,13 +2,13 @@
 
 namespace VehicleRouting.Controllers
 {
-    public class AppController : Controller
+    public class SolverController : Controller
     {
         public ActionResult Index()
         {
             this.ViewBag.Title = "Application";
 
-            return this.View("~/Views/App/App.cshtml"); // TODO: Can we add this without explicitly specifying the path?
+            return this.View();
         }
     }
 }
