@@ -205,6 +205,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\PointsOfDeliveriesController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SolverController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -213,10 +215,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811181509339_InitialCreate.cs" />
+    <Compile Include="Migrations\201811181509339_InitialCreate.Designer.cs">
+      <DependentUpon>201811181509339_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811181637576_xd.cs" />
+    <Compile Include="Migrations\201811181637576_xd.Designer.cs">
+      <DependentUpon>201811181637576_xd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811181702324_Added-PointsOfDeliveries.cs" />
+    <Compile Include="Migrations\201811181702324_Added-PointsOfDeliveries.Designer.cs">
+      <DependentUpon>201811181702324_Added-PointsOfDeliveries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Vehicle.cs" />
+    <Compile Include="Models\VehicleRoutingModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -268,6 +283,16 @@
     <Content Include="Views\Vehicles\Details.cshtml" />
     <Content Include="Views\Vehicles\Edit.cshtml" />
     <Content Include="Views\Vehicles\Index.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\PointsOfDeliveries\Create.cshtml" />
+    <Content Include="Views\PointsOfDeliveries\Delete.cshtml" />
+    <Content Include="Views\PointsOfDeliveries\Details.cshtml" />
+    <Content Include="Views\PointsOfDeliveries\Edit.cshtml" />
+    <Content Include="Views\PointsOfDeliveries\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,6 +305,17 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811181509339_InitialCreate.resx">
+      <DependentUpon>201811181509339_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811181637576_xd.resx">
+      <DependentUpon>201811181637576_xd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811181702324_Added-PointsOfDeliveries.resx">
+      <DependentUpon>201811181702324_Added-PointsOfDeliveries.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

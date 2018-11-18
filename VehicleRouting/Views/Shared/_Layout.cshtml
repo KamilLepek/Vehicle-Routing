@@ -27,8 +27,8 @@
                         <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Add Vehicles", "Index", "Vehicles", new { area = "" }, null)</li>
-                            <li><a href="#">Add Products</a></li><!--TODO: Change to Html.ActionLink() when proper site will be implemented-->
-                            <li><a href="#">Add Points of delivery</a></li><!--TODO: Change to Html.ActionLink() when proper site will be implemented-->
+                            <li>@Html.ActionLink("Add Products", "Index", "Products", new { area = "" }, null)</li>
+                            <li>@Html.ActionLink("Add Points of Deliveries", "Index", "PointsOfDeliveries", new { area = "" }, null)</li>
                         </ul>
                     </li>
                 </ul>
