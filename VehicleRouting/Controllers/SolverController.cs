@@ -49,7 +49,8 @@ namespace VehicleRouting.Controllers
             {
                 LocationsViewModel = locationsModel,
                 AlgorithmResult = algorithm.GetRoutes(),
-                TimeAndDistance = algorithm.GetTimeAndDistance()
+                TimeAndDistance = algorithm.GetTimeAndDistance(),
+                VehiclesExceededCapacity = algorithm.GetVehiclesExceededCapacity()
             };
 
             return this.View("Result", solverResultViewModel);

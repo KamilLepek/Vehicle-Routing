@@ -67,7 +67,7 @@
     {
         <div id="@("vehicle" + vehicleID)" onclick="getSeparateLayer(@vehicleID)" class="panel panel-default">
             @(Model.LocationsViewModel.Vehicles.First(v => v.ID == vehicleID).Name)
-            <br/>
+            <br />
             @{
                 int i;
             }
@@ -81,11 +81,23 @@
                 @Html.Raw(" => ")
             }
             S@(vehicleID)
-            <br/>
+            <br />
             Time: @Model.TimeAndDistance[vehicleID].Item1 seconds
-            <br/>
+            <br />
             Distance: @Model.TimeAndDistance[vehicleID].Item2 meters
-            <br/>
+            <br />
+        </div>
+    }
+
+    @foreach (int vehicleID in Model.VehiclesExceededCapacity.Keys)
+    {
+        <div id="@("vehicle" + vehicleID)" onclick="getSeparateLayer(@vehicleID)" class="panel panel-default">
+            @(Model.LocationsViewModel.Vehicles.First(v => v.ID == vehicleID).Name)
+            <br />
+            Vehicle can not reach its destination point @Model.LocationsViewModel.PointsOfDelivery.ToList().Find( p => p.ID == Model.VehiclesExceededCapacity[vehicleID].Item2).Name
+            <br />
+            Reason: Capacity exceeded by @Model.VehiclesExceededCapacity[vehicleID].Item1 kg
+            <br />
         </div>
     }
 </div>

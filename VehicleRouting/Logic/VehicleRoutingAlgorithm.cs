@@ -16,6 +16,8 @@ namespace VehicleRouting.Logic
 
         private Dictionary<int, List<ValueTuple<float, float>>> inputData;
 
+        private Dictionary<int, ValueTuple<float, int>> VehiclesExceededCapacity = new Dictionary<int, ValueTuple<float, int>>();
+
         public VehicleRoutingAlgorithm(SolverReturnViewModel solverReturnViewModel)
         {
             this.solverReturnViewModel = solverReturnViewModel;
@@ -56,6 +58,11 @@ namespace VehicleRouting.Logic
             return dict;
         }
 
+        public Dictionary<int, ValueTuple<float, int>> GetVehiclesExceededCapacity()
+        {
+            return VehiclesExceededCapacity;
+        }
+
         /// <summary>
         ///     Converts Product pack ID to point of delivery location.
         /// </summary>
@@ -66,6 +73,11 @@ namespace VehicleRouting.Logic
             var pointOfDelivery = this.db.ProductPacks.First(v => v.ID == ID).PointOfDelivery;
 
             return new ValueTuple<float, float>(pointOfDelivery.CoordX, pointOfDelivery.CoordY);
+        }
+
+        private int GetPointOfDeliveryIDFromProductPackID(int ID)
+        {
+            return this.db.ProductPacks.First(v => v.ID == ID).PointOfDelivery.ID;
         }
 
         /// <summary>
@@ -80,6 +92,15 @@ namespace VehicleRouting.Logic
             {
                 int key = this.solverReturnViewModel.VehiclesIDs[i];
                 int value = this.solverReturnViewModel.ProductPacks[i];
+
+                int amountOfCapacityExceeded = isVehicleCapacityNotExceeded(key, value);
+
+                if (amountOfCapacityExceeded > 0)
+                {
+                    VehiclesExceededCapacity.Add(key, new ValueTuple<float, int> (amountOfCapacityExceeded, this.GetPointOfDeliveryIDFromProductPackID(value)));
+                    continue;
+                }
+
                 if (dict.ContainsKey(key))
                     dict[key].Add(value);
                 else
@@ -142,6 +163,18 @@ namespace VehicleRouting.Logic
 
             return lines.TakeWhile(line => line.Contains(',')).Select(line => line.Split(',')).Select(splits =>
                 new ValueTuple<float, float>(float.Parse(splits[0]), float.Parse(splits[1]))).ToList();
+        }
+
+        private int isVehicleCapacityNotExceeded(int vehicleID, int productPackID)
+        {
+
+            int maximumVehicleCapacity = this.db.Vehicles.First(v => v.ID == vehicleID).Capacity;
+            int productWeight = this.db.ProductPacks.First(p => p.ID == productPackID).Product.Weight;
+            int productCount = this.db.ProductPacks.First(p => p.ID == productPackID).Amount;
+
+            int productPackWeight = productWeight * productCount;
+
+            return (productPackWeight - maximumVehicleCapacity);
         }
     }
 }

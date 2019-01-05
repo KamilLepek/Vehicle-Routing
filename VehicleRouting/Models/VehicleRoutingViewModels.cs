@@ -43,5 +43,10 @@ namespace VehicleRouting.Models
         ///     Dictionary of keys - vehicle ids, values - time of algorithm execution and total distance calculated
         /// </summary>
         public Dictionary<int, ValueTuple<float,float>> TimeAndDistance { get; set; }
+
+        /// <summary>
+        ///     Dictionary of keys - vehicle ids, values - exceeded capacity
+        /// </summary>
+        public Dictionary<int, ValueTuple<float, int>> VehiclesExceededCapacity { get; set; }
     }
 }
