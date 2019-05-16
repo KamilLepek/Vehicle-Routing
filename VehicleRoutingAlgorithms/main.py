@@ -12,14 +12,25 @@ def find_routing(coords):
     # Create Routing Model
     routing = pywrapcp.RoutingModel(len(coords), 1, 0)
 
+    metric = algorithm_ID
     # Define weight of each edge
-    distance_callback = create_distance_callback(algorithm_ID, coords)
+    if algorithm_ID > 2:
+        metric = 0
+    distance_callback = create_distance_callback(metric, coords)
     routing.SetArcCostEvaluatorOfAllVehicles(distance_callback)
     add_distance_dimension(routing, distance_callback)
 
     # Setting first solution heuristic (cheapest addition).
     search_parameters = pywrapcp.RoutingModel.DefaultSearchParameters()
-    search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
+
+    if algorithm_ID == 3:
+        search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.CHRISTOFIDES
+    elif algorithm_ID == 4:
+        search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.LOCAL_CHEAPEST_ARC
+    elif algorithm_ID == 5:
+        search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.SAVINGS
+    else:
+        search_parameters.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC
 
     # Solve the problem.
     assignment = routing.SolveWithParameters(search_parameters)
